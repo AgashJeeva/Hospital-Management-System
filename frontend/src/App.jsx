@@ -11,22 +11,18 @@ import PatientDashboard from './pages/PatientDashboard';
 import BookAppointment from './pages/BookAppointment';
 import Invoices from './pages/Invoices';
 import AdminDashboard from './pages/AdminDashboard';
+import DoctorDashboard from './pages/DoctorDashboard';
+import Chat from './pages/Chat';
+import RegisterPatient from './pages/RegisterPatient';
 
 // --- STUB COMPONENTS FOR ROUTING (To be replaced with full implementations step-by-step) ---
 const DashboardRedirect = () => {
   const { user } = useAuth();
   if (user.role === 'patient') return <PatientDashboard />;
-  if (user.role === 'doctor') return <DoctorDashboardStub />;
+  if (user.role === 'doctor') return <DoctorDashboard />;
   if (user.role === 'admin') return <AdminDashboard />;
   return <StaffDashboardStub />;
 };
-
-const DoctorDashboardStub = () => (
-  <div className="glass-card">
-    <h2>Doctor Dashboard</h2>
-    <p>Welcome to the doctor clinic panel. View your daily patients and update consultations.</p>
-  </div>
-);
 
 const StaffDashboardStub = () => (
   <div className="glass-card">
@@ -36,10 +32,8 @@ const StaffDashboardStub = () => (
 );
 
 const HistoryStub = () => <div className="glass-card"><h2>Medical History</h2><p>Patient electronic health records.</p></div>;
-const ChatStub = () => <div className="glass-card"><h2>Consultation Chat</h2><p>Secure direct patient-doctor message logs.</p></div>;
 const DoctorsStub = () => <div className="glass-card"><h2>Manage Doctors</h2><p>Administration panel to oversee doctors directories.</p></div>;
 const StaffStub = () => <div className="glass-card"><h2>Manage Staff</h2><p>Administration panel to oversee receptionist personnel.</p></div>;
-const RegisterPatientStub = () => <div className="glass-card"><h2>Register Patient</h2><p>Receptionist portal to register new patient folders.</p></div>;
 
 // --- PROTECTED ROUTE CHECKER ---
 const ProtectedRoute = () => {
@@ -91,10 +85,10 @@ function App() {
               <Route path="/book" element={<BookAppointment />} />
               <Route path="/history" element={<HistoryStub />} />
               <Route path="/invoices" element={<Invoices />} />
-              <Route path="/chat" element={<ChatStub />} />
+              <Route path="/chat" element={<Chat />} />
               <Route path="/doctors" element={<DoctorsStub />} />
               <Route path="/staff" element={<StaffStub />} />
-              <Route path="/register-patient" element={<RegisterPatientStub />} />
+              <Route path="/register-patient" element={<RegisterPatient />} />
               
               {/* Fallbacks */}
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
