@@ -6,33 +6,25 @@ import Register from './pages/Register';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 
+// Real Page Imports
+import PatientDashboard from './pages/PatientDashboard';
+import BookAppointment from './pages/BookAppointment';
+import Invoices from './pages/Invoices';
+import AdminDashboard from './pages/AdminDashboard';
+
 // --- STUB COMPONENTS FOR ROUTING (To be replaced with full implementations step-by-step) ---
 const DashboardRedirect = () => {
   const { user } = useAuth();
-  if (user.role === 'patient') return <PatientDashboardStub />;
+  if (user.role === 'patient') return <PatientDashboard />;
   if (user.role === 'doctor') return <DoctorDashboardStub />;
-  if (user.role === 'admin') return <AdminDashboardStub />;
+  if (user.role === 'admin') return <AdminDashboard />;
   return <StaffDashboardStub />;
 };
-
-const PatientDashboardStub = () => (
-  <div className="glass-card">
-    <h2>Patient Dashboard</h2>
-    <p>Welcome to the patient panel. Here you can view your appointments and medical logs.</p>
-  </div>
-);
 
 const DoctorDashboardStub = () => (
   <div className="glass-card">
     <h2>Doctor Dashboard</h2>
     <p>Welcome to the doctor clinic panel. View your daily patients and update consultations.</p>
-  </div>
-);
-
-const AdminDashboardStub = () => (
-  <div className="glass-card">
-    <h2>Admin Dashboard</h2>
-    <p>Welcome to the hospital administration desk. Monitor operations, staff, and doctors.</p>
   </div>
 );
 
@@ -43,9 +35,7 @@ const StaffDashboardStub = () => (
   </div>
 );
 
-const BookStub = () => <div className="glass-card"><h2>Book Appointment</h2><p>Appointment booking portal.</p></div>;
 const HistoryStub = () => <div className="glass-card"><h2>Medical History</h2><p>Patient electronic health records.</p></div>;
-const InvoicesStub = () => <div className="glass-card"><h2>Invoices & Billing</h2><p>Hospital invoices, receipts and payment records.</p></div>;
 const ChatStub = () => <div className="glass-card"><h2>Consultation Chat</h2><p>Secure direct patient-doctor message logs.</p></div>;
 const DoctorsStub = () => <div className="glass-card"><h2>Manage Doctors</h2><p>Administration panel to oversee doctors directories.</p></div>;
 const StaffStub = () => <div className="glass-card"><h2>Manage Staff</h2><p>Administration panel to oversee receptionist personnel.</p></div>;
@@ -98,9 +88,9 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<DashboardRedirect />} />
-              <Route path="/book" element={<BookStub />} />
+              <Route path="/book" element={<BookAppointment />} />
               <Route path="/history" element={<HistoryStub />} />
-              <Route path="/invoices" element={<InvoicesStub />} />
+              <Route path="/invoices" element={<Invoices />} />
               <Route path="/chat" element={<ChatStub />} />
               <Route path="/doctors" element={<DoctorsStub />} />
               <Route path="/staff" element={<StaffStub />} />
