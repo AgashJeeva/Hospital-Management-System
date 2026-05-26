@@ -1,0 +1,240 @@
+.book-appointment-page {
+  animation: fadeIn 0.4s ease;
+}
+
+.booking-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.success-booking-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+}
+
+.success-icon {
+  color: var(--success);
+  margin-bottom: 20px;
+  animation: scaleUp 0.3s ease;
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.redirect-note {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+/* Booking Layout Grid */
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 991px) {
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.filter-row {
+  margin-bottom: 20px;
+}
+
+/* Doctor card items */
+.doctors-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.doctor-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.doctor-profile-card:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+  transform: translateX(4px);
+}
+
+.doctor-profile-card.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.doctor-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--bg-main);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doctor-profile-card.selected .doctor-card-icon {
+  background-color: var(--primary);
+  color: white;
+}
+
+.doctor-card-meta {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-card-meta h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.doc-specialty {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.doc-qualification {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.doctor-card-fees {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.doctor-card-fees strong {
+  font-size: 16px;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Form Panel */
+.selected-doctor-summary {
+  background-color: var(--bg-main);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.selected-doctor-summary p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.selected-doctor-summary h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Slots Grid styling */
+.slots-toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.slot-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.slot-toggle-button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.slot-toggle-button.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.no-slots-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--warning-bg);
+  color: var(--warning);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.booking-submit-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  font-size: 15px;
+}
+
+.booking-form-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
