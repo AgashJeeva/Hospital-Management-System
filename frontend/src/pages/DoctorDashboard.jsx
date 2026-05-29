@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Calendar, Users, CheckCircle, Clock, AlertCircle, FileText, X, Plus } from 'lucide-react';
-import './DoctorDashboard.css';
+import { Calendar, Users, CheckCircle, Clock, AlertCircle, X } from 'lucide-react';
 
 const DoctorDashboard = () => {
   const { user } = useAuth();
@@ -133,109 +132,118 @@ const DoctorDashboard = () => {
 
   if (loading) {
     return (
-      <div className="doctor-loading-container">
+      <div className="flex justify-center items-center h-[60vh]">
         <div className="spinner"></div>
       </div>
     );
   }
 
   return (
-    <div className="doctor-dashboard">
-      <div className="dashboard-header-panel">
-        <h1>Doctor Dashboard</h1>
-        <p className="welcome-tag">Oversee patient schedules, diagnosis writeups, and medical prescriptions</p>
+    <div className="animate-[fadeIn_0.4s_ease]">
+      <div className="mb-7.5">
+        <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">Doctor Dashboard</h1>
+        <p className="text-text-secondary text-[16px] mt-1">Oversee patient schedules, diagnosis writeups, and medical prescriptions</p>
       </div>
 
       {error && (
-        <div className="error-alert">
+        <div className="flex items-center gap-2.5 bg-danger-bg text-danger p-3.5 px-5 rounded-lg mb-6 font-medium">
           <AlertCircle size={18} />
           <span>{error}</span>
         </div>
       )}
 
       {/* Stats Counter Grid */}
-      <div className="stats-grid">
-        <div className="glass-card stat-item-card">
-          <div className="stat-icon-wrapper blue">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-7.5">
+        <div className="flex items-center gap-5 p-6 bg-bg-card backdrop-blur-md border border-border-color rounded-xl shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300">
+          <div className="w-[52px] h-[52px] rounded-lg flex items-center justify-center bg-primary-light text-primary">
             <Calendar size={24} />
           </div>
-          <div className="stat-info-details">
-            <h3>{total}</h3>
-            <p>Total Bookings</p>
+          <div className="flex flex-col">
+            <h3 className="text-[28px] font-bold text-text-primary leading-tight">{total}</h3>
+            <p className="text-[13px] text-text-muted font-semibold uppercase tracking-[0.5px] mt-0.5">Total Bookings</p>
           </div>
         </div>
 
-        <div className="glass-card stat-item-card">
-          <div className="stat-icon-wrapper orange">
+        <div className="flex items-center gap-5 p-6 bg-bg-card backdrop-blur-md border border-border-color rounded-xl shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300">
+          <div className="w-[52px] h-[52px] rounded-lg flex items-center justify-center bg-warning-bg text-warning">
             <Clock size={24} />
           </div>
-          <div className="stat-info-details">
-            <h3>{pending}</h3>
-            <p>Pending Review</p>
+          <div className="flex flex-col">
+            <h3 className="text-[28px] font-bold text-text-primary leading-tight">{pending}</h3>
+            <p className="text-[13px] text-text-muted font-semibold uppercase tracking-[0.5px] mt-0.5">Pending Review</p>
           </div>
         </div>
 
-        <div className="glass-card stat-item-card">
-          <div className="stat-icon-wrapper info">
+        <div className="flex items-center gap-5 p-6 bg-bg-card backdrop-blur-md border border-border-color rounded-xl shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300">
+          <div className="w-[52px] h-[52px] rounded-lg flex items-center justify-center bg-info-bg text-info">
             <Users size={24} />
           </div>
-          <div className="stat-info-details">
-            <h3>{confirmed}</h3>
-            <p>Confirmed Visits</p>
+          <div className="flex flex-col">
+            <h3 className="text-[28px] font-bold text-text-primary leading-tight">{confirmed}</h3>
+            <p className="text-[13px] text-text-muted font-semibold uppercase tracking-[0.5px] mt-0.5">Confirmed Visits</p>
           </div>
         </div>
 
-        <div className="glass-card stat-item-card">
-          <div className="stat-icon-wrapper green">
+        <div className="flex items-center gap-5 p-6 bg-bg-card backdrop-blur-md border border-border-color rounded-xl shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300">
+          <div className="w-[52px] h-[52px] rounded-lg flex items-center justify-center bg-success-bg text-success">
             <CheckCircle size={24} />
           </div>
-          <div className="stat-info-details">
-            <h3>{completed}</h3>
-            <p>Completed Visits</p>
+          <div className="flex flex-col">
+            <h3 className="text-[28px] font-bold text-text-primary leading-tight">{completed}</h3>
+            <p className="text-[13px] text-text-muted font-semibold uppercase tracking-[0.5px] mt-0.5">Completed Visits</p>
           </div>
         </div>
       </div>
 
       {/* Main Appointments Table Card */}
-      <div className="glass-card table-section-card">
-        <h2 className="section-card-title">Patient Consultation Schedule</h2>
-        <div className="table-container">
-          <table className="custom-table">
+      <div className="bg-bg-card backdrop-blur-md border border-border-color rounded-xl p-6 shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300 mb-6">
+        <h2 className="text-[18px] font-bold text-text-primary mb-5 border-b border-border-color pb-3">Patient Consultation Schedule</h2>
+        <div className="overflow-x-auto rounded-xl border border-border-color">
+          <table className="w-full border-collapse text-left bg-bg-surface">
             <thead>
-              <tr>
-                <th>Patient Name</th>
-                <th>Gender/Age</th>
-                <th>Appointment Date</th>
-                <th>Time Slot</th>
-                <th>Booking Reason</th>
-                <th>Status</th>
-                <th>Action</th>
+              <tr className="border-b-1.5 border-border-color">
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Patient Name</th>
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Gender/Age</th>
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Appointment Date</th>
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Time Slot</th>
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Booking Reason</th>
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Status</th>
+                <th className="bg-bg-main p-4 px-5 font-semibold text-sm text-text-primary font-heading">Action</th>
               </tr>
             </thead>
             <tbody>
               {appointments.length > 0 ? (
                 appointments.map((app) => (
-                  <tr key={app._id}>
-                    <td>
-                      <strong>{app.patient?.name}</strong>
-                      <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{app.patient?.email}</div>
+                  <tr className="hover:bg-primary-light" key={app._id}>
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle">
+                      <strong className="text-text-primary">{app.patient?.name}</strong>
+                      <div className="text-xs text-text-muted mt-0.5">{app.patient?.email}</div>
                     </td>
-                    <td>
-                      <span style={{ textTransform: 'capitalize' }}>{app.patient?.gender || 'N/A'}</span>
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle capitalize">
+                      <span>{app.patient?.gender || 'N/A'}</span>
                       {app.patient?.dob && ` (${new Date().getFullYear() - new Date(app.patient.dob).getFullYear()} yrs)`}
                     </td>
-                    <td>{new Date(app.date).toLocaleDateString()}</td>
-                    <td>
-                      <span className="slot-badge"><Clock size={12} /> {app.timeSlot}</span>
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle">{new Date(app.date).toLocaleDateString()}</td>
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle">
+                      <span className="inline-flex items-center gap-1.5 bg-primary-light text-primary py-1 px-2.5 rounded-full text-xs font-medium">
+                        <Clock size={12} /> {app.timeSlot}
+                      </span>
                     </td>
-                    <td>{app.reason.substring(0, 30)}{app.reason.length > 30 ? '...' : ''}</td>
-                    <td>
-                      <span className={`badge badge-${app.status === 'completed' ? 'success' : app.status === 'confirmed' ? 'info' : app.status === 'cancelled' ? 'danger' : 'warning'}`}>
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle text-text-secondary">
+                      {app.reason.substring(0, 30)}{app.reason.length > 30 ? '...' : ''}
+                    </td>
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle">
+                      <span className={`inline-flex items-center p-1 px-2.5 text-xs font-semibold rounded-full capitalize ${
+                        app.status === 'completed' ? 'bg-success-bg text-success' : 
+                        app.status === 'confirmed' ? 'bg-info-bg text-info' : 
+                        app.status === 'cancelled' ? 'bg-danger-bg text-danger' : 
+                        'bg-warning-bg text-warning'
+                      }`}>
                         {app.status}
                       </span>
                     </td>
-                    <td>
-                      <button className="btn btn-secondary btn-sm-link" onClick={() => {
+                    <td className="p-4 px-5 border-b border-border-color text-sm align-middle">
+                      <button className="text-xs font-semibold py-1.5 px-3 bg-bg-surface border border-border-color text-text-secondary rounded-md cursor-pointer hover:border-primary hover:text-primary transition-all duration-300" onClick={() => {
                         setActiveAppointment(app);
                         setShowPrescriptionForm(false);
                       }}>
@@ -246,7 +254,7 @@ const DoctorDashboard = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', padding: '30px' }}>
+                  <td colSpan="7" className="text-center p-8 text-text-muted">
                     No patient consultation bookings found
                   </td>
                 </tr>
@@ -258,51 +266,51 @@ const DoctorDashboard = () => {
 
       {/* CONSULTATION DETAIL MODAL */}
       {activeAppointment && (
-        <div className="modal-overlay">
-          <div className="modal-content doctor-consultation-modal">
-            <div className="modal-header">
-              <h3>Patient Consultation</h3>
-              <button className="close-modal-btn" onClick={() => setActiveAppointment(null)}>
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-[1000] animate-[fadeIn_0.25s_ease]">
+          <div className="bg-bg-surface border border-border-color rounded-xl w-[90%] max-w-[650px] shadow-lg overflow-hidden animate-[slideUp_0.3s_cubic-bezier(0.4,0,0.2,1)]">
+            <div className="flex justify-between items-center p-5 px-6 border-b border-border-color">
+              <h3 className="font-heading font-bold text-text-primary text-[16px]">Patient Consultation</h3>
+              <button className="bg-none border-none text-text-muted cursor-pointer p-1.5 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-bg-main hover:text-text-primary" onClick={() => setActiveAppointment(null)}>
                 <X size={20} />
               </button>
             </div>
             
-            <div className="modal-body consultation-modal-body">
+            <div className="p-6 max-h-[75vh] overflow-y-auto">
               {/* Patient Basic Bio Card */}
-              <div className="patient-bio-summary">
+              <div className="flex justify-between border-b-1.5 border-border-color pb-4 mb-4.5">
                 <div>
-                  <span className="billing-label">Patient Name:</span>
-                  <h4>{activeAppointment.patient?.name}</h4>
-                  <p>{activeAppointment.patient?.email} | {activeAppointment.patient?.phone}</p>
+                  <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-1">Patient Name</span>
+                  <h4 className="text-base font-bold text-text-primary font-heading leading-tight">{activeAppointment.patient?.name}</h4>
+                  <p className="text-xs text-text-secondary mt-1">{activeAppointment.patient?.email} | {activeAppointment.patient?.phone}</p>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <span className="billing-label">Session Slot:</span>
-                  <p><strong>{new Date(activeAppointment.date).toLocaleDateString()}</strong> at {activeAppointment.timeSlot}</p>
+                <div className="text-right">
+                  <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-1">Session Slot</span>
+                  <p className="text-xs text-text-secondary"><strong className="text-text-primary">{new Date(activeAppointment.date).toLocaleDateString()}</strong> at {activeAppointment.timeSlot}</p>
                 </div>
               </div>
 
-              <div className="session-concern-box">
-                <span className="billing-label">Concern Description:</span>
-                <p>"{activeAppointment.reason}"</p>
+              <div className="bg-bg-main p-4 rounded-lg border border-border-color mb-5">
+                <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-1.5">Concern Description</span>
+                <p className="italic text-sm text-text-secondary">"{activeAppointment.reason}"</p>
               </div>
 
               {/* Status Actions */}
               {!showPrescriptionForm && activeAppointment.status !== 'completed' && (
-                <div className="consultation-status-actions">
-                  <span className="billing-label">Update Session Status:</span>
-                  <div className="status-buttons-row">
+                <div className="border-t border-border-color pt-4.5 mb-5">
+                  <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-2">Update Session Status</span>
+                  <div className="flex gap-3 mt-2">
                     {activeAppointment.status === 'pending' && (
-                      <button className="btn btn-primary" onClick={() => handleUpdateStatus(activeAppointment._id, 'confirmed')}>
+                      <button className="py-2.5 px-5 text-sm font-semibold rounded-lg bg-gradient-to-r from-primary to-secondary text-white shadow-[0_4px_15px_rgba(37,99,235,0.2)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.35)] hover:-translate-y-[1px] hover:brightness-110 active:translate-y-0 transition-all duration-300 cursor-pointer" onClick={() => handleUpdateStatus(activeAppointment._id, 'confirmed')}>
                         Confirm Booking
                       </button>
                     )}
                     {activeAppointment.status !== 'cancelled' && (
-                      <button className="btn btn-danger" onClick={() => handleUpdateStatus(activeAppointment._id, 'cancelled')}>
+                      <button className="py-2.5 px-5 text-sm font-semibold rounded-lg bg-danger-bg text-danger border border-danger/25 transition-all duration-300 hover:bg-danger hover:text-white cursor-pointer" onClick={() => handleUpdateStatus(activeAppointment._id, 'cancelled')}>
                         Cancel Session
                       </button>
                     )}
                     {activeAppointment.status === 'confirmed' && (
-                      <button className="btn btn-success-action" onClick={() => setShowPrescriptionForm(true)}>
+                      <button className="py-2.5 px-5 text-sm font-semibold rounded-lg bg-success text-white shadow-[0_4px_12px_rgba(16,185,129,0.2)] hover:shadow-[0_6px_16px_rgba(16,185,129,0.3)] hover:-translate-y-[1px] active:translate-y-0 transition-all duration-300 cursor-pointer" onClick={() => setShowPrescriptionForm(true)}>
                         Write Prescription
                       </button>
                     )}
@@ -312,37 +320,37 @@ const DoctorDashboard = () => {
 
               {/* Prescription Viewer (If Completed) */}
               {activeAppointment.status === 'completed' && activeAppointment.prescription && (
-                <div className="completed-prescription-viewer">
-                  <h4 className="section-title">Prescribed Consultation Record</h4>
-                  <div className="prescription-meta-grid">
+                <div className="border-t border-dashed border-border-color pt-4.5">
+                  <h4 className="text-sm font-bold text-text-primary uppercase tracking-[0.5px] mb-4 font-heading">Prescribed Consultation Record</h4>
+                  <div className="grid grid-cols-2 gap-4 mb-5">
                     <div>
-                      <span className="meta-label">Symptoms</span>
-                      <p>{activeAppointment.prescription.symptoms || 'General Checkup'}</p>
+                      <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-1">Symptoms</span>
+                      <p className="text-sm text-text-secondary">{activeAppointment.prescription.symptoms || 'General Checkup'}</p>
                     </div>
                     <div>
-                      <span className="meta-label">Diagnosis</span>
-                      <p>{activeAppointment.prescription.diagnosis || 'General'}</p>
+                      <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-1">Diagnosis</span>
+                      <p className="text-sm text-text-secondary">{activeAppointment.prescription.diagnosis || 'General'}</p>
                     </div>
                   </div>
                   
-                  <div className="prescription-medicines">
-                    <span className="meta-label">Medicines</span>
-                    <table className="medicines-simple-table">
+                  <div className="mt-4.5">
+                    <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-2">Medicines</span>
+                    <table className="w-full border-collapse mt-2">
                       <thead>
-                        <tr>
-                          <th>Medicine</th>
-                          <th>Dosage</th>
-                          <th>Duration</th>
-                          <th>Notes</th>
+                        <tr className="border-b-1.5 border-border-color">
+                          <th className="text-left text-[11px] text-text-muted uppercase font-bold pb-1.5 font-heading">Medicine</th>
+                          <th className="text-left text-[11px] text-text-muted uppercase font-bold pb-1.5 font-heading">Dosage</th>
+                          <th className="text-left text-[11px] text-text-muted uppercase font-bold pb-1.5 font-heading">Duration</th>
+                          <th className="text-left text-[11px] text-text-muted uppercase font-bold pb-1.5 font-heading">Notes</th>
                         </tr>
                       </thead>
                       <tbody>
                         {activeAppointment.prescription.medicines?.map((med, idx) => (
-                          <tr key={idx}>
-                            <td><strong>{med.name}</strong></td>
-                            <td>{med.dosage}</td>
-                            <td>{med.duration}</td>
-                            <td>{med.notes || '-'}</td>
+                          <tr key={idx} className="border-b border-border-color last:border-0">
+                            <td className="py-2.5 text-xs text-text-secondary"><strong className="text-text-primary">{med.name}</strong></td>
+                            <td className="py-2.5 text-xs text-text-secondary">{med.dosage}</td>
+                            <td className="py-2.5 text-xs text-text-secondary">{med.duration}</td>
+                            <td className="py-2.5 text-xs text-text-secondary">{med.notes || '-'}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -350,9 +358,9 @@ const DoctorDashboard = () => {
                   </div>
 
                   {activeAppointment.prescription.advice && (
-                    <div style={{ marginTop: '16px' }}>
-                      <span className="meta-label">Doctor Advice</span>
-                      <p className="advice-box">{activeAppointment.prescription.advice}</p>
+                    <div className="mt-4">
+                      <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-1">Doctor Advice</span>
+                      <p className="bg-primary-light text-primary p-3 px-4 rounded-lg text-sm font-medium mt-1">{activeAppointment.prescription.advice}</p>
                     </div>
                   )}
                 </div>
@@ -360,26 +368,26 @@ const DoctorDashboard = () => {
 
               {/* Prescription Creation Form */}
               {showPrescriptionForm && (
-                <form onSubmit={handlePrescriptionSubmit} className="prescription-form-fields animate-slideUp">
-                  <h4 className="section-title text-primary">Write Prescription</h4>
+                <form onSubmit={handlePrescriptionSubmit} className="border-t-1.5 border-dashed border-primary pt-5 mt-5 animate-[slideUp_0.3s_ease]">
+                  <h4 className="text-sm font-bold uppercase tracking-[0.5px] mb-4 text-primary font-heading">Write Prescription</h4>
 
-                  <div className="register-form-row">
-                    <div className="form-group">
-                      <label className="form-label">Symptoms</label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="flex flex-col mb-4">
+                      <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Symptoms</label>
                       <input
                         type="text"
-                        className="input-control"
+                        className="w-full py-2.5 px-4 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                         placeholder="Fever, cough, body pain"
                         value={symptoms}
                         onChange={(e) => setSymptoms(e.target.value)}
                         required
                       />
                     </div>
-                    <div className="form-group">
-                      <label className="form-label">Diagnosis</label>
+                    <div className="flex flex-col mb-4">
+                      <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Diagnosis</label>
                       <input
                         type="text"
-                        className="input-control"
+                        className="w-full py-2.5 px-4 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                         placeholder="Viral Infection, Bronchitis"
                         value={diagnosis}
                         onChange={(e) => setDiagnosis(e.target.value)}
@@ -389,19 +397,19 @@ const DoctorDashboard = () => {
                   </div>
 
                   {/* Medicines dynamic list */}
-                  <div className="prescription-medicines-section">
-                    <div className="section-subtitle-row">
-                      <h5>Prescribed Medicines</h5>
-                      <button type="button" className="btn btn-secondary btn-sm-link" onClick={handleAddMedicineRow}>
+                  <div className="border border-border-color bg-bg-main p-4.5 rounded-xl mt-2.5">
+                    <div className="flex justify-between items-center mb-4">
+                      <h5 className="text-xs font-bold uppercase text-text-primary tracking-[0.5px]">Prescribed Medicines</h5>
+                      <button type="button" className="text-xs font-semibold py-1.5 px-3 bg-bg-surface border border-border-color text-text-secondary rounded-md cursor-pointer hover:border-primary hover:text-primary transition-all duration-300" onClick={handleAddMedicineRow}>
                         Add Medicine
                       </button>
                     </div>
 
                     {medicines.map((med, idx) => (
-                      <div className="medicine-row" key={idx}>
+                      <div className="flex flex-col md:flex-row gap-2.5 mb-2.5 items-center last:mb-0" key={idx}>
                         <input
                           type="text"
-                          className="input-control"
+                          className="w-full md:flex-1 py-2 px-3.5 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                           placeholder="Medicine Name (e.g. Paracetamol)"
                           value={med.name}
                           onChange={(e) => handleMedicineChange(idx, 'name', e.target.value)}
@@ -409,8 +417,7 @@ const DoctorDashboard = () => {
                         />
                         <input
                           type="text"
-                          className="input-control"
-                          style={{ width: '110px' }}
+                          className="w-full md:w-[110px] py-2 px-3.5 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                           placeholder="Dosage (1-0-1)"
                           value={med.dosage}
                           onChange={(e) => handleMedicineChange(idx, 'dosage', e.target.value)}
@@ -418,8 +425,7 @@ const DoctorDashboard = () => {
                         />
                         <input
                           type="text"
-                          className="input-control"
-                          style={{ width: '110px' }}
+                          className="w-full md:w-[110px] py-2 px-3.5 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                           placeholder="Duration"
                           value={med.duration}
                           onChange={(e) => handleMedicineChange(idx, 'duration', e.target.value)}
@@ -427,13 +433,13 @@ const DoctorDashboard = () => {
                         />
                         <input
                           type="text"
-                          className="input-control"
+                          className="w-full md:flex-1 py-2 px-3.5 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                           placeholder="Notes (e.g., After food)"
                           value={med.notes}
                           onChange={(e) => handleMedicineChange(idx, 'notes', e.target.value)}
                         />
                         {medicines.length > 1 && (
-                          <button type="button" className="close-modal-btn red" onClick={() => handleRemoveMedicineRow(idx)}>
+                          <button type="button" className="bg-none border-none text-text-muted cursor-pointer p-1.5 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-danger-bg hover:text-danger" onClick={() => handleRemoveMedicineRow(idx)}>
                             <X size={16} />
                           </button>
                         )}
@@ -441,22 +447,22 @@ const DoctorDashboard = () => {
                     ))}
                   </div>
 
-                  <div className="form-group" style={{ marginTop: '20px' }}>
-                    <label className="form-label">Consultation Advice / Recommendations</label>
+                  <div className="flex flex-col mb-4 mt-5">
+                    <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Consultation Advice / Recommendations</label>
                     <textarea
                       rows="2"
-                      className="input-control"
+                      className="w-full py-2.5 px-4 text-sm rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary placeholder-text-muted"
                       placeholder="Take rest for 3 days, drink warm fluids..."
                       value={advice}
                       onChange={(e) => setAdvice(e.target.value)}
                     ></textarea>
                   </div>
 
-                  <div className="form-actions-row">
-                    <button type="button" className="btn btn-secondary" onClick={() => setShowPrescriptionForm(false)}>
+                  <div className="flex justify-end gap-3 mt-6">
+                    <button type="button" className="py-2.5 px-5 text-sm font-semibold rounded-lg bg-bg-surface border border-border-color text-text-secondary transition-all duration-300 hover:bg-bg-main hover:border-text-muted cursor-pointer" onClick={() => setShowPrescriptionForm(false)}>
                       Back
                     </button>
-                    <button type="submit" className="btn btn-primary" disabled={submitting}>
+                    <button type="submit" className="py-2.5 px-5 text-sm font-semibold rounded-lg bg-gradient-to-r from-primary to-secondary text-white shadow-[0_4px_15px_rgba(37,99,235,0.2)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.35)] hover:-translate-y-[1px] hover:brightness-110 active:translate-y-0 transition-all duration-300 cursor-pointer" disabled={submitting}>
                       {submitting ? 'Submitting...' : 'Save Prescription & Complete visit'}
                     </button>
                   </div>
@@ -464,8 +470,8 @@ const DoctorDashboard = () => {
               )}
             </div>
 
-            <div className="modal-footer">
-              <button className="btn btn-secondary" onClick={() => setActiveAppointment(null)}>Close</button>
+            <div className="flex justify-end items-center p-5 px-6 border-t border-border-color">
+              <button className="py-2.5 px-5 text-sm font-semibold rounded-lg bg-bg-surface border border-border-color text-text-secondary transition-all duration-300 hover:bg-bg-main hover:border-text-muted cursor-pointer" onClick={() => setActiveAppointment(null)}>Close</button>
             </div>
           </div>
         </div>
