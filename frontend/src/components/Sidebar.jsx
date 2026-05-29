@@ -13,8 +13,6 @@ import {
   Briefcase
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import './Sidebar.css';
-
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const { user } = useAuth();
 
@@ -63,28 +61,28 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navLinks = getNavLinks();
 
   return (
-    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-logo">
-        <Activity className="logo-icon" size={28} />
-        <span className="logo-text">ApexCare</span>
+    <aside className={`fixed top-0 left-0 bottom-0 w-[270px] bg-bg-surface border-r border-border-color flex flex-col z-[99] transition-all duration-300 max-lg:-translate-x-full ${isOpen ? 'max-lg:translate-x-0 max-lg:shadow-lg' : ''}`}>
+      <div className="h-[70px] flex items-center gap-3 px-6 border-b border-border-color">
+        <Activity className="text-primary animate-pulse" size={28} />
+        <span className="font-heading text-xl font-extrabold text-text-primary tracking-tight">ApexCare</span>
       </div>
       
-      <nav className="sidebar-nav">
+      <nav className="flex-1 py-6 px-4 flex flex-col gap-2 overflow-y-auto">
         {navLinks.map((link, idx) => (
           <NavLink
             key={idx}
             to={link.path}
-            className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+            className={({ isActive }) => `flex items-center gap-3.5 py-3 px-4 rounded-lg text-text-secondary font-medium transition-all duration-300 text-[15px] hover:bg-bg-main hover:text-text-primary hover:translate-x-1 ${isActive ? 'bg-primary-light text-primary font-semibold' : ''}`}
             onClick={toggleSidebar}
           >
-            <span className="link-icon">{link.icon}</span>
-            <span className="link-label">{link.label}</span>
+            <span className="flex items-center justify-center transition-all duration-300">{link.icon}</span>
+            <span>{link.label}</span>
           </NavLink>
         ))}
       </nav>
       
-      <div className="sidebar-footer">
-        <span className="user-role-badge">{role} Portal</span>
+      <div className="py-5 px-6 border-t border-border-color">
+        <span className="inline-block font-heading bg-primary-light text-primary text-xs font-semibold py-1.5 px-3.5 rounded-full uppercase tracking-wider">{role} Portal</span>
       </div>
     </aside>
   );
