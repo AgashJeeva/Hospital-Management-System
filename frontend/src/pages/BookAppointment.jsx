@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Calendar, User as UserIcon, Clock, MessageSquare, AlertCircle, CheckCircle } from 'lucide-react';
-import './BookAppointment.css';
 
 const BookAppointment = () => {
   const { user } = useAuth();
@@ -140,7 +139,7 @@ const BookAppointment = () => {
 
   if (loading) {
     return (
-      <div className="booking-loading-container">
+      <div className="flex justify-center items-center h-[60vh]">
         <div className="spinner"></div>
       </div>
     );
@@ -148,38 +147,38 @@ const BookAppointment = () => {
 
   if (success) {
     return (
-      <div className="glass-card success-booking-box animate-fadeIn">
-        <CheckCircle className="success-icon" size={60} />
-        <h2>Appointment Confirmed!</h2>
+      <div className="flex flex-col items-center justify-center text-center max-w-[500px] mx-auto my-[60px] p-10 bg-bg-card backdrop-blur-md border border-border-color rounded-[20px] shadow-lg animate-[fadeIn_0.4s_ease]">
+        <CheckCircle className="text-success mb-5" size={60} />
+        <h2 className="text-[22px] font-bold text-text-primary mb-1">Appointment Confirmed!</h2>
         <p>Your session has been successfully booked with Dr. {selectedDoctor?.user?.name}.</p>
-        <p className="redirect-note">Redirecting to your dashboard...</p>
+        <p className="text-sm text-text-muted mt-2.5">Redirecting to your dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className="book-appointment-page">
-      <div className="page-header-panel">
-        <h1>Book an Appointment</h1>
-        <p className="welcome-tag">Schedule a consultation with our experienced clinical specialists</p>
+    <div className="animate-[fadeIn_0.4s_ease]">
+      <div className="mb-7.5">
+        <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">Book an Appointment</h1>
+        <p className="text-text-secondary text-[16px] mt-1">Schedule a consultation with our experienced clinical specialists</p>
       </div>
 
       {error && (
-        <div className="error-alert">
+        <div className="flex items-center gap-2.5 bg-danger-bg text-danger p-3.5 px-5 rounded-lg mb-6 font-medium">
           <AlertCircle size={18} />
           <span>{error}</span>
         </div>
       )}
 
-      <div className="booking-grid">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-[30px] mb-10">
         {/* Left Column: Doctor Selection */}
-        <div className="glass-card doctor-selector-panel">
-          <h2 className="panel-title">1. Select a Specialist</h2>
+        <div className="bg-bg-card backdrop-blur-md border border-border-color rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
+          <h2 className="text-[18px] font-bold text-text-primary mb-5 border-b border-border-color pb-3">1. Select a Specialist</h2>
           
-          <div className="filter-row">
-            <label className="form-label">Specialty Filter</label>
+          <div className="mb-5">
+            <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Specialty Filter</label>
             <select
-              className="register-select-field"
+              className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] cursor-pointer"
               value={selectedSpecialty}
               onChange={(e) => {
                 setSelectedSpecialty(e.target.value);
@@ -196,54 +195,54 @@ const BookAppointment = () => {
             </select>
           </div>
 
-          <div className="doctors-card-list">
+          <div className="flex flex-col gap-3 max-h-[480px] overflow-y-auto pr-1">
             {filteredDoctors.length > 0 ? (
               filteredDoctors.map((doc) => (
                 <div
                   key={doc._id}
-                  className={`doctor-profile-card ${selectedDoctor?._id === doc._id ? 'selected' : ''}`}
+                  className={`flex items-center gap-4 p-4 border border-border-color rounded-lg bg-bg-surface cursor-pointer transition-all duration-300 hover:border-primary hover:bg-primary-light hover:translate-x-1 ${selectedDoctor?._id === doc._id ? 'border-primary bg-primary-light shadow-sm' : ''}`}
                   onClick={() => handleSelectDoctor(doc)}
                 >
-                  <div className="doctor-card-icon">
+                  <div className={`w-11 h-11 rounded-full bg-bg-main text-text-muted flex items-center justify-center transition-all duration-300 ${selectedDoctor?._id === doc._id ? 'bg-primary text-white' : ''}`}>
                     <UserIcon size={24} />
                   </div>
-                  <div className="doctor-card-meta">
-                    <h4>Dr. {doc.user?.name}</h4>
-                    <span className="doc-specialty">{doc.specialty}</span>
-                    <span className="doc-qualification">{doc.qualification}</span>
+                  <div className="flex-1 flex flex-col">
+                    <h4 className="text-[15px] font-semibold text-text-primary">Dr. {doc.user?.name}</h4>
+                    <span className="text-xs font-semibold text-primary">{doc.specialty}</span>
+                    <span className="text-xs text-text-muted">{doc.qualification}</span>
                   </div>
-                  <div className="doctor-card-fees">
+                  <div className="text-right flex flex-col text-xs">
                     <span>Fee</span>
-                    <strong>${doc.fees}</strong>
+                    <strong className="text-base font-bold text-text-primary">${doc.fees}</strong>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="no-doctors-text">No doctors matching search criteria</p>
+              <p className="text-center text-text-muted p-7.5">No doctors matching search criteria</p>
             )}
           </div>
         </div>
 
         {/* Right Column: Time Slot & Booking Form */}
-        <div className="glass-card booking-details-panel">
-          <h2 className="panel-title">2. Appointment Scheduling</h2>
+        <div className="bg-bg-card backdrop-blur-md border border-border-color rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
+          <h2 className="text-[18px] font-bold text-text-primary mb-5 border-b border-border-color pb-3">2. Appointment Scheduling</h2>
           
           {selectedDoctor ? (
-            <form onSubmit={handleBookingSubmit} className="booking-details-form">
-              <div className="selected-doctor-summary">
-                <p>Booking session with:</p>
-                <h3>Dr. {selectedDoctor.user?.name}</h3>
-                <span className="badge badge-success">{selectedDoctor.specialty}</span>
+            <form onSubmit={handleBookingSubmit} className="flex flex-col gap-4">
+              <div className="bg-bg-main p-4 rounded-lg border border-border-color mb-2 flex flex-col items-start gap-1">
+                <p className="text-xs text-text-muted">Booking session with:</p>
+                <h3 className="text-base font-bold text-text-primary">Dr. {selectedDoctor.user?.name}</h3>
+                <span className="inline-flex items-center p-1 px-2.5 text-xs font-semibold rounded-full capitalize bg-success-bg text-success">{selectedDoctor.specialty}</span>
               </div>
 
               {/* Date Input */}
-              <div className="form-group">
-                <label className="form-label">Select Date</label>
-                <div className="register-input-wrapper">
-                  <Calendar className="register-input-icon" size={18} />
+              <div className="flex flex-col">
+                <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Select Date</label>
+                <div className="relative flex items-center">
+                  <Calendar className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                   <input
                     type="date"
-                    className="register-input-field plain"
+                    className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                     min={getTodayDateString()}
                     value={appointmentDate}
                     onChange={handleDateChange}
@@ -254,15 +253,15 @@ const BookAppointment = () => {
 
               {/* Time Slots Selector */}
               {appointmentDate && (
-                <div className="form-group">
-                  <label className="form-label">Available Time Slots</label>
+                <div className="flex flex-col">
+                  <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Available Time Slots</label>
                   {availableSlots.length > 0 ? (
-                    <div className="slots-toggle-grid">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 mt-2">
                       {availableSlots.map((slot) => (
                         <button
                           type="button"
                           key={slot}
-                          className={`slot-toggle-button ${selectedSlot === slot ? 'active' : ''}`}
+                          className={`flex items-center justify-center gap-1.5 p-2.5 text-xs font-semibold bg-bg-surface border border-border-color text-text-secondary rounded-lg cursor-pointer transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary-light ${selectedSlot === slot ? 'bg-primary border-primary text-white shadow-sm hover:bg-primary hover:text-white' : ''}`}
                           onClick={() => setSelectedSlot(slot)}
                         >
                           <Clock size={14} />
@@ -271,7 +270,7 @@ const BookAppointment = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="no-slots-alert">
+                    <div className="flex items-center gap-2 bg-warning-bg text-warning p-2.5 px-3.5 rounded-lg text-xs font-medium mt-2">
                       <AlertCircle size={16} />
                       <span>Doctor has no consultation slots listed for this day.</span>
                     </div>
@@ -280,14 +279,13 @@ const BookAppointment = () => {
               )}
 
               {/* Reason Input */}
-              <div className="form-group">
-                <label className="form-label">Reason for Booking</label>
-                <div className="register-input-wrapper">
-                  <MessageSquare className="register-input-icon" style={{ top: '15px' }} size={18} />
+              <div className="flex flex-col">
+                <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Reason for Booking</label>
+                <div className="relative flex items-center">
+                  <MessageSquare className="absolute left-4 top-4 text-text-muted pointer-events-none" size={18} />
                   <textarea
                     rows="3"
-                    className="input-control"
-                    style={{ paddingLeft: '46px' }}
+                    className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                     placeholder="Briefly describe your medical concerns..."
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
@@ -298,15 +296,15 @@ const BookAppointment = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary booking-submit-button"
+                className="w-full mt-2.5 text-[15px] font-heading font-semibold py-3 px-6 rounded-lg bg-gradient-to-r from-primary to-secondary text-white shadow-[0_4px_15px_rgba(37,99,235,0.2)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.35)] hover:-translate-y-[1px] hover:brightness-110 active:translate-y-0 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={submitting || !selectedSlot}
               >
                 {submitting ? 'Reserving slot...' : 'Confirm Appointment Booking'}
               </button>
             </form>
           ) : (
-            <div className="booking-form-placeholder">
-              <Calendar size={48} className="placeholder-icon" />
+            <div className="flex flex-col items-center justify-center py-20 px-5 text-center text-text-muted">
+              <Calendar size={48} className="text-text-muted mb-3" />
               <p>Please select a specialist on the left to activate scheduling.</p>
             </div>
           )}
