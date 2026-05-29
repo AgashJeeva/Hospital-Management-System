@@ -78,12 +78,21 @@ export const registerUser = async (req, res) => {
 // @access  Public
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log(`[LOGIN TRY] Email: "${email}", Password: "${password}"`);
 
   try {
     // We explicitly select the password because by default it is deselected in Schema
     const user = await User.findOne({ email }).select('+password');
 
-    if (user && (await user.matchPassword(password))) {
+    if (!user) {
+      console.log(`[LOGIN FAIL] No user found with email: "${email}"`);
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+    }
+
+    const isMatch = await user.matchPassword(password);
+    console.log(`[LOGIN RESULT] User found: "${user.name}". Match result: ${isMatch}`);
+
+    if (isMatch) {
       res.json({
         success: true,
         _id: user._id,
@@ -96,6 +105,7 @@ export const loginUser = async (req, res) => {
       res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
   } catch (error) {
+    console.error(`[LOGIN ERROR]`, error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
