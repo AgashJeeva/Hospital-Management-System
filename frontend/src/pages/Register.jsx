@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Activity, Mail, Lock, User as UserIcon, Phone, Calendar, AlertCircle } from 'lucide-react';
-import './Register.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -75,34 +74,34 @@ const Register = () => {
   };
 
   return (
-    <div className="register-page-container">
-      <div className="register-glass-box">
-        <div className="register-logo-header">
-          <Activity className="register-brand-icon" size={32} />
-          <h1 className="register-brand-title">ApexCare</h1>
+    <div className="flex items-center justify-center min-h-screen p-5 bg-bg-main bg-[radial-gradient(circle_at_10%_20%,rgba(37,99,235,0.08)_0%,transparent_40%),radial-gradient(circle_at_90%_80%,rgba(13,148,136,0.08)_0%,transparent_40%)] transition-all duration-300 py-10">
+      <div className="w-full max-w-[720px] p-10 bg-bg-card backdrop-blur-md border border-border-color rounded-[20px] shadow-lg text-center">
+        <div className="flex items-center justify-center gap-2.5 mb-6">
+          <Activity className="text-primary" size={32} />
+          <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">ApexCare</h1>
         </div>
 
-        <h2 className="register-form-title">Create Account</h2>
-        <p className="register-form-subtitle">Register to manage appointments, billing and records</p>
+        <h2 className="text-[22px] font-bold text-text-primary mb-1">Create Account</h2>
+        <p className="text-[14px] text-text-secondary mb-8">Register to manage appointments, billing and records</p>
 
         {errorMsg && (
-          <div className="register-error-alert">
+          <div className="flex items-center gap-2.5 bg-danger-bg text-danger p-3 px-4 rounded-lg text-sm font-medium text-left mb-6 animate-[shake_0.35s_ease]">
             <AlertCircle size={18} />
             <span>{errorMsg}</span>
           </div>
         )}
 
-        <form className="register-form" onSubmit={handleSubmit}>
+        <form className="text-left" onSubmit={handleSubmit}>
           {/* General Fields */}
-          <div className="register-form-row">
-            <div className="register-input-group">
-              <label className="register-input-label">Full Name</label>
-              <div className="register-input-wrapper">
-                <UserIcon className="register-input-icon" size={18} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4.5">
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Full Name</label>
+              <div className="relative flex items-center">
+                <UserIcon className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                 <input
                   type="text"
                   name="name"
-                  className="register-input-field"
+                  className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                   placeholder="John Doe"
                   value={formData.name}
                   onChange={handleChange}
@@ -111,14 +110,14 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="register-input-group">
-              <label className="register-input-label">Email Address</label>
-              <div className="register-input-wrapper">
-                <Mail className="register-input-icon" size={18} />
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Email Address</label>
+              <div className="relative flex items-center">
+                <Mail className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                 <input
                   type="email"
                   name="email"
-                  className="register-input-field"
+                  className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                   placeholder="john@example.com"
                   value={formData.email}
                   onChange={handleChange}
@@ -128,15 +127,15 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="register-form-row">
-            <div className="register-input-group">
-              <label className="register-input-label">Password</label>
-              <div className="register-input-wrapper">
-                <Lock className="register-input-icon" size={18} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4.5">
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Password</label>
+              <div className="relative flex items-center">
+                <Lock className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                 <input
                   type="password"
                   name="password"
-                  className="register-input-field"
+                  className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={handleChange}
@@ -145,14 +144,14 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="register-input-group">
-              <label className="register-input-label">Confirm Password</label>
-              <div className="register-input-wrapper">
-                <Lock className="register-input-icon" size={18} />
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Confirm Password</label>
+              <div className="relative flex items-center">
+                <Lock className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                 <input
                   type="password"
                   name="confirmPassword"
-                  className="register-input-field"
+                  className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                   placeholder="••••••••"
                   value={formData.confirmPassword}
                   onChange={handleChange}
@@ -162,15 +161,15 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="register-form-row">
-            <div className="register-input-group">
-              <label className="register-input-label">Phone Number</label>
-              <div className="register-input-wrapper">
-                <Phone className="register-input-icon" size={18} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4.5">
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Phone Number</label>
+              <div className="relative flex items-center">
+                <Phone className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                 <input
                   type="tel"
                   name="phone"
-                  className="register-input-field"
+                  className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                   placeholder="+1 (555) 000-0000"
                   value={formData.phone}
                   onChange={handleChange}
@@ -178,14 +177,14 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="register-input-group">
-              <label className="register-input-label">Date of Birth</label>
-              <div className="register-input-wrapper">
-                <Calendar className="register-input-icon" size={18} />
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Date of Birth</label>
+              <div className="relative flex items-center">
+                <Calendar className="absolute left-4 text-text-muted pointer-events-none" size={18} />
                 <input
                   type="date"
                   name="dob"
-                  className="register-input-field"
+                  className="w-full py-3 px-4 pl-11 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                   value={formData.dob}
                   onChange={handleChange}
                   required
@@ -194,12 +193,12 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="register-form-row">
-            <div className="register-input-group">
-              <label className="register-input-label">Gender</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4.5">
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Gender</label>
               <select
                 name="gender"
-                className="register-select-field"
+                className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] cursor-pointer"
                 value={formData.gender}
                 onChange={handleChange}
               >
@@ -209,11 +208,11 @@ const Register = () => {
               </select>
             </div>
 
-            <div className="register-input-group">
-              <label className="register-input-label">Account Role</label>
+            <div className="flex flex-col">
+              <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Account Role</label>
               <select
                 name="role"
-                className="register-select-field"
+                className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] cursor-pointer"
                 value={formData.role}
                 onChange={handleChange}
               >
@@ -226,15 +225,15 @@ const Register = () => {
 
           {/* Conditional Doctor Fields */}
           {formData.role === 'doctor' && (
-            <div className="doctor-extra-section animate-slideUp">
-              <h3 className="doctor-section-title">Doctor Credentials</h3>
-              <div className="register-form-row">
-                <div className="register-input-group">
-                  <label className="register-input-label">Specialty</label>
+            <div className="bg-bg-main border-1.5 border-dashed border-border-color p-6 rounded-xl mt-2.5 mb-6 animate-[slideUp_0.3s_ease]">
+              <h3 className="text-sm uppercase tracking-wider font-extrabold text-primary mb-4.5 font-heading">Doctor Credentials</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4.5">
+                <div className="flex flex-col">
+                  <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Specialty</label>
                   <input
                     type="text"
                     name="specialty"
-                    className="register-input-field plain"
+                    className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                     placeholder="e.g. Cardiology, Pediatrics"
                     value={formData.specialty}
                     onChange={handleChange}
@@ -242,12 +241,12 @@ const Register = () => {
                   />
                 </div>
 
-                <div className="register-input-group">
-                  <label className="register-input-label">Qualifications</label>
+                <div className="flex flex-col">
+                  <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Qualifications</label>
                   <input
                     type="text"
                     name="qualification"
-                    className="register-input-field plain"
+                    className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                     placeholder="e.g. MD, MBBS"
                     value={formData.qualification}
                     onChange={handleChange}
@@ -256,13 +255,13 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="register-form-row">
-                <div className="register-input-group">
-                  <label className="register-input-label">Experience (Years)</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="flex flex-col">
+                  <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Experience (Years)</label>
                   <input
                     type="number"
                     name="experienceYears"
-                    className="register-input-field plain"
+                    className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                     placeholder="5"
                     min="0"
                     value={formData.experienceYears}
@@ -271,12 +270,12 @@ const Register = () => {
                   />
                 </div>
 
-                <div className="register-input-group">
-                  <label className="register-input-label">Consultation Fee ($)</label>
+                <div className="flex flex-col">
+                  <label className="block text-[13px] font-semibold text-text-primary mb-1.5 font-heading">Consultation Fee ($)</label>
                   <input
                     type="number"
                     name="fees"
-                    className="register-input-field plain"
+                    className="w-full py-3 px-4 text-[15px] rounded-lg border-1.5 border-border-color bg-bg-surface text-text-primary transition-all duration-300 focus:border-primary focus:shadow-[0_0_15px_rgba(37,99,235,0.2)] placeholder-text-muted"
                     placeholder="50"
                     min="0"
                     value={formData.fees}
@@ -288,14 +287,14 @@ const Register = () => {
             </div>
           )}
 
-          <button type="submit" className="btn btn-primary register-submit-btn" disabled={isSubmitting}>
+          <button type="submit" className="w-full mt-2.5 text-[16px] font-heading font-semibold py-3 px-6 rounded-lg bg-gradient-to-r from-primary to-secondary text-white shadow-[0_4px_15px_rgba(37,99,235,0.2)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.35)] hover:-translate-y-[1px] hover:brightness-110 active:translate-y-0 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2" disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
         </form>
 
-        <div className="register-footer-links">
+        <div className="mt-6 text-[14px] text-text-secondary">
           <span>Already have an account? </span>
-          <Link to="/login" className="register-redirect-link">
+          <Link to="/login" className="text-primary font-semibold hover:underline">
             Sign in
           </Link>
         </div>
