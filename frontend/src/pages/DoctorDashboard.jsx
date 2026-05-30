@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Calendar, Users, CheckCircle, Clock, AlertCircle, X } from 'lucide-react';
 
@@ -19,10 +19,6 @@ const DoctorDashboard = () => {
   const [advice, setAdvice] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchDoctorAppointments();
-  }, [user.token]);
-
   const fetchDoctorAppointments = async () => {
     try {
       const res = await fetch('/api/appointments', {
@@ -36,12 +32,16 @@ const DoctorDashboard = () => {
       } else {
         setError(data.message || 'Failed to fetch doctor appointments');
       }
-    } catch (err) {
+    } catch {
       setError('Network error fetching appointments');
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchDoctorAppointments();
+  }, [user.token]);
 
   const handleUpdateStatus = async (appId, newStatus) => {
     try {
@@ -62,7 +62,7 @@ const DoctorDashboard = () => {
       } else {
         alert(data.message || 'Failed to update status');
       }
-    } catch (err) {
+    } catch {
       alert('Network error updating status');
     }
   };
@@ -117,7 +117,7 @@ const DoctorDashboard = () => {
       } else {
         alert(data.message || 'Failed to submit prescription');
       }
-    } catch (err) {
+    } catch {
       alert('Network error submitting prescription');
     } finally {
       setSubmitting(false);
