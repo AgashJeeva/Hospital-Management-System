@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Users, DollarSign, Calendar, Briefcase, UserCheck, AlertCircle, RefreshCw } from 'lucide-react';
+import { DollarSign, Calendar, Briefcase, UserCheck, AlertCircle, RefreshCw } from 'lucide-react';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -16,10 +16,6 @@ const AdminDashboard = () => {
   const [recentAppointments, setRecentAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    fetchAdminData();
-  }, [user.token]);
 
   const fetchAdminData = async () => {
     setLoading(true);
@@ -61,12 +57,16 @@ const AdminDashboard = () => {
       } else {
         setError('Error loading administrative data panels');
       }
-    } catch (err) {
+    } catch {
       setError('Connection timeout compiling hospital metrics');
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchAdminData();
+  }, [user.token]);
 
   const handleToggleDoctorStatus = async (doctorId, currentStatus) => {
     const nextStatus = currentStatus === 'active' ? 'inactive' : 'active';
@@ -86,7 +86,7 @@ const AdminDashboard = () => {
       } else {
         alert(data.message || 'Failed to update doctor profile');
       }
-    } catch (err) {
+    } catch {
       alert('Network error updating clinical status');
     }
   };
