@@ -1,4 +1,3 @@
-import React from 'react';
 import { Menu, Sun, Moon, LogOut, User as UserIcon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 const Header = ({ toggleSidebar }) => {
