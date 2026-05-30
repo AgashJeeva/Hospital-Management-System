@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { FileText, Plus, Eye, Printer, CheckCircle, AlertCircle, DollarSign, X } from 'lucide-react';
+import { Plus, Eye, Printer, AlertCircle, DollarSign, X } from 'lucide-react';
 
 const Invoices = () => {
   const { user } = useAuth();
@@ -20,13 +20,6 @@ const Invoices = () => {
   const [discount, setDiscount] = useState(0);
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchInvoices();
-    if (user.role === 'admin' || user.role === 'staff') {
-      fetchPatients();
-    }
-  }, [user.token]);
-
   const fetchInvoices = async () => {
     try {
       const res = await fetch('/api/invoices', {
@@ -40,7 +33,7 @@ const Invoices = () => {
       } else {
         setError(data.message || 'Failed to fetch billing invoices');
       }
-    } catch (err) {
+    } catch {
       setError('Network connection error fetching invoices');
     } finally {
       setLoading(false);
@@ -71,6 +64,13 @@ const Invoices = () => {
     }
   };
 
+  useEffect(() => {
+    fetchInvoices();
+    if (user.role === 'admin' || user.role === 'staff') {
+      fetchPatients();
+    }
+  }, [user.token]);
+
   const handleUpdatePaymentStatus = async (invoiceId, status, method) => {
     try {
       const res = await fetch(`/api/invoices/${invoiceId}/status`, {
@@ -92,7 +92,7 @@ const Invoices = () => {
       } else {
         alert(data.message || 'Failed to update payment details');
       }
-    } catch (err) {
+    } catch {
       alert('Network error updating status');
     }
   };
@@ -152,7 +152,7 @@ const Invoices = () => {
       } else {
         setError(data.message || 'Failed to create invoice');
       }
-    } catch (err) {
+    } catch {
       setError('Network error compiling invoice');
     } finally {
       setSubmitting(false);
