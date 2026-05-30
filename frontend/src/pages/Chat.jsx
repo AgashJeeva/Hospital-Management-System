@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { MessageSquare, Send, User as UserIcon, Search } from 'lucide-react';
 
@@ -16,37 +16,6 @@ const Chat = () => {
   
   const chatEndRef = useRef(null);
   const pollingRef = useRef(null);
-
-  // Fetch chat contacts list
-  useEffect(() => {
-    fetchPartners();
-  }, [user.token]);
-
-  // Handle active partner changes & start polling thread updates
-  useEffect(() => {
-    if (!activePartner) {
-      setMessages([]);
-      return;
-    }
-
-    // Load initial thread
-    fetchMessages(activePartner._id);
-
-    // Set up polling every 4 seconds to get new incoming messages
-    if (pollingRef.current) clearInterval(pollingRef.current);
-    pollingRef.current = setInterval(() => {
-      fetchMessages(activePartner._id, true); // silent parameter to prevent loading spin re-trigger
-    }, 4000);
-
-    return () => {
-      if (pollingRef.current) clearInterval(pollingRef.current);
-    };
-  }, [activePartner, user.token]);
-
-  // Scroll to bottom when messages load
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
 
   const fetchPartners = async () => {
     try {
@@ -80,6 +49,36 @@ const Chat = () => {
       console.error('Error loading chat thread', err);
     }
   };
+
+  // Fetch chat contacts list
+  useEffect(() => {
+    fetchPartners();
+  }, [user.token]);
+
+  // Handle active partner changes & start polling thread updates
+  useEffect(() => {
+    if (!activePartner) {
+      return;
+    }
+
+    // Load initial thread
+    fetchMessages(activePartner._id);
+
+    // Set up polling every 4 seconds to get new incoming messages
+    if (pollingRef.current) clearInterval(pollingRef.current);
+    pollingRef.current = setInterval(() => {
+      fetchMessages(activePartner._id, true); // silent parameter to prevent loading spin re-trigger
+    }, 4000);
+
+    return () => {
+      if (pollingRef.current) clearInterval(pollingRef.current);
+    };
+  }, [activePartner, user.token]);
+
+  // Scroll to bottom when messages load
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -151,7 +150,10 @@ const Chat = () => {
                   className={`flex items-center gap-3 p-3.5 px-5 cursor-pointer transition-all duration-300 border-l-3 border-transparent hover:bg-bg-main ${
                     activePartner?._id === partner._id ? '!bg-primary-light !border-primary' : ''
                   }`}
-                  onClick={() => setActivePartner(partner)}
+                  onClick={() => {
+                    setMessages([]);
+                    setActivePartner(partner);
+                  }}
                 >
                   <div className="w-9 h-9 rounded-full bg-primary-light text-primary flex items-center justify-center overflow-hidden shrink-0">
                     {partner.avatar ? (
@@ -200,7 +202,7 @@ const Chat = () => {
               {/* Chat Thread Messages */}
               <div className="flex-grow p-6 overflow-y-auto flex flex-col gap-4">
                 {messages.map((msg) => {
-                  const isSentByMe = msg.sender._id === user._id || msg.sender === user._id;
+                  const isSentByMe = msg.sender?._id === user._id || msg.sender === user._id;
                   return (
                     <div className={`flex w-full ${isSentByMe ? 'justify-end' : 'justify-start'}`} key={msg._id}>
                       <div className={`max-w-[60%] p-3 px-4 rounded-lg text-sm relative flex flex-col shadow-xs ${
